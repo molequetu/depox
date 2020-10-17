@@ -27,6 +27,11 @@ namespace depox.Infrastructure.Data
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
 
+        public DbSet<Bin> Bins { get; set; }
+
+        public DbSet<Item> Items { get; set; }
+
+        public DbSet<Stock> Stocks { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

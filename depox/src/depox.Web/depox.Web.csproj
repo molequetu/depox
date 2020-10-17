@@ -29,5 +29,7 @@
       <DependentUpon>Update.cs</DependentUpon>
     </Compile>
   </ItemGroup>
+  
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/asmdef" /></VisualStudio></ProjectExtensions>
 
 </Project>

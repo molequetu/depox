@@ -37,8 +37,7 @@ namespace depox.Web
             host.Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-    Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilder(args)
         .UseServiceProviderFactory(new AutofacServiceProviderFactory())
         .ConfigureWebHostDefaults(webBuilder =>
         {
