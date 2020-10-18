@@ -20,24 +20,16 @@ namespace depox.Core.Entities
         public Bin Bin { get; set; }
 
 
-        private bool OutOfStock()
+        public bool IsOutOfStock(decimal removingQuantity)
         {
-            if (StockQuantity <= 0)
+            if (StockQuantity < removingQuantity)
             {
                 Events.Add(new ItemNegativeStockQuantity(this));
             }
-            return StockQuantity < 0;
+
+            return StockQuantity < removingQuantity;
         }
 
-        public void RemoveStock(decimal currentQuantity, decimal quantityToRemove)
-        {
-            var finalQuantity = currentQuantity - quantityToRemove;
-            StockQuantity = finalQuantity;
-            if (OutOfStock())
-            {
-                throw new  OutOfStockException(Id);
-            }
-        }
 
         public void AddQuantity(decimal quantity)
         {

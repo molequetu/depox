@@ -58,7 +58,7 @@ namespace depox.Core.Services
             if (bin == null) throw new BinNotFoundException(binId);
 
             // quantity applied to remove is greater than the available item's quantity, cant export
-            if (quantity > item.StockQuantity)
+            if (item.IsOutOfStock(quantity))
             {
                 throw new OutOfStockException(itemId);
             }
