@@ -9,9 +9,9 @@ namespace depox.Web.Endpoints.ToDoItems
 {
     public class GetById : BaseAsyncEndpoint<int, ToDoItemResponse>
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<ToDoItem> _repository;
 
-        public GetById(IRepository repository)
+        public GetById(IRepository<ToDoItem> repository)
         {
             _repository = repository;
         }
@@ -25,7 +25,7 @@ namespace depox.Web.Endpoints.ToDoItems
         ]
         public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(int id)
         {
-            var item = await _repository.GetByIdAsync<ToDoItem>(id);
+            var item = await _repository.GetByIdAsync(id);
 
             var response = new ToDoItemResponse
             {

@@ -9,9 +9,9 @@ namespace depox.Web.Endpoints.ToDoItems
 {
     public class Create : BaseAsyncEndpoint<NewToDoItemRequest, ToDoItemResponse>
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<ToDoItem> _repository;
 
-        public Create(IRepository repository)
+        public Create(IRepository<ToDoItem> repository)
         {
             _repository = repository;
         }

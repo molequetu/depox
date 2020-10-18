@@ -1,4 +1,5 @@
 ﻿using depox.Core;
+using depox.Core.Entities;
 using depox.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -6,9 +7,9 @@ namespace depox.Web.Pages.ToDoRazorPage
 {
     public class PopulateModel : PageModel
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<ToDoItem> _repository;
 
-        public PopulateModel(IRepository repository)
+        public PopulateModel(IRepository<ToDoItem> repository)
         {
             _repository = repository;
         }

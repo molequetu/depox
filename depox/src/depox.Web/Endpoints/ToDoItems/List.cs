@@ -11,9 +11,9 @@ namespace depox.Web.Endpoints.ToDoItems
 {
     public class List : BaseAsyncEndpoint<List<ToDoItemResponse>>
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<ToDoItem> _repository;
 
-        public List(IRepository repository)
+        public List(IRepository<ToDoItem> repository)
         {
             _repository = repository;
         }
@@ -27,7 +27,7 @@ namespace depox.Web.Endpoints.ToDoItems
         ]
         public override async Task<ActionResult<List<ToDoItemResponse>>> HandleAsync()
         {
-            var items = (await _repository.ListAsync<ToDoItem>())
+            var items = (await _repository.ListAsync())
                 .Select(item => new ToDoItemResponse
                 {
                     Id = item.Id,

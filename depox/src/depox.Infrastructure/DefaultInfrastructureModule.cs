@@ -6,6 +6,8 @@ using depox.Infrastructure.DomainEvents;
 using depox.SharedKernel.Interfaces;
 using System.Collections.Generic;
 using System.Reflection;
+using depox.Core.Entities;
+using depox.SharedKernel;
 using Module = Autofac.Module;
 
 namespace depox.Infrastructure
@@ -19,7 +21,7 @@ namespace depox.Infrastructure
         {
             _isDevelopment = isDevelopment;
             var coreAssembly = Assembly.GetAssembly(typeof(DatabasePopulator));
-            var infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository));
+            var infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository<BaseEntity>));
             _assemblies.Add(coreAssembly);
             _assemblies.Add(infrastructureAssembly);
             if (callingAssembly != null)
@@ -45,7 +47,15 @@ namespace depox.Infrastructure
         {
             builder.RegisterType<DomainEventDispatcher>().As<IDomainEventDispatcher>()
                 .InstancePerLifetimeScope();
-            builder.RegisterType<EfRepository>().As<IRepository>()
+            builder.RegisterType<EfRepository<ToDoItem>>().As<IRepository<ToDoItem>>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<EfRepository<Bin>>().As<IRepository<Bin>>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<EfRepository<Item>>().As<IRepository<Item>>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<EfRepository<Stock>>().As<IRepository<Stock>>()
                 .InstancePerLifetimeScope();
 
             builder.RegisterAssemblyTypes(_assemblies.ToArray())

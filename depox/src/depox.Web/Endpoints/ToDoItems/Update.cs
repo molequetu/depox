@@ -9,9 +9,9 @@ namespace depox.Web.Endpoints.ToDoItems
 {
     public class Update : BaseAsyncEndpoint<UpdateToDoItemRequest, ToDoItemResponse>
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<ToDoItem> _repository;
 
-        public Update(IRepository repository)
+        public Update(IRepository<ToDoItem> repository)
         {
             _repository = repository;
         }
@@ -25,7 +25,7 @@ namespace depox.Web.Endpoints.ToDoItems
         ]
         public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(UpdateToDoItemRequest request)
         {
-            var existingItem = await _repository.GetByIdAsync<ToDoItem>(request.Id);
+            var existingItem = await _repository.GetByIdAsync(request.Id);
 
             existingItem.Title = request.Title;
             existingItem.Description = request.Description;

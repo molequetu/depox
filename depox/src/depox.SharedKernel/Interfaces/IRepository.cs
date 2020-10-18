@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 
 namespace depox.SharedKernel.Interfaces
 {
-    public interface IRepository
+    public interface IRepository<T> where T : BaseEntity
     {
-        Task<T> GetByIdAsync<T>(int id) where T : BaseEntity;
-        Task<List<T>> ListAsync<T>() where T : BaseEntity;
-        Task<T> AddAsync<T>(T entity) where T : BaseEntity;
-        Task UpdateAsync<T>(T entity) where T : BaseEntity;
-        Task DeleteAsync<T>(T entity) where T : BaseEntity;
+        Task<T> GetByIdAsync(int id);
+        Task<List<T>> ListAsync();
+        Task<T> AddAsync(T entity);
+        Task UpdateAsync(T entity);
+        Task DeleteAsync(T entity);
     }
 }

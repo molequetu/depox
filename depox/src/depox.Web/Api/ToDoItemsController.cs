@@ -10,9 +10,9 @@ namespace depox.Web.Api
 {
     public class ToDoItemsController : BaseApiController
     {
-        private readonly IRepository _repository;
+        private readonly IRepository<ToDoItem> _repository;
 
-        public ToDoItemsController(IRepository repository)
+        public ToDoItemsController(IRepository<ToDoItem> repository)
         {
             _repository = repository;
         }
@@ -21,7 +21,7 @@ namespace depox.Web.Api
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            var items = (await _repository.ListAsync<ToDoItem>())
+            var items = (await _repository.ListAsync())
                             .Select(ToDoItemDTO.FromToDoItem);
             return Ok(items);
         }
@@ -30,7 +30,7 @@ namespace depox.Web.Api
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var item = ToDoItemDTO.FromToDoItem(await _repository.GetByIdAsync<ToDoItem>(id));
+            var item = ToDoItemDTO.FromToDoItem(await _repository.GetByIdAsync(id));
             return Ok(item);
         }
 
@@ -64,7 +64,7 @@ namespace depox.Web.Api
         [HttpPatch("{id:int}/complete")]
         public async Task<IActionResult> Complete(int id)
         {
-            var toDoItem = await _repository.GetByIdAsync<ToDoItem>(id);
+            var toDoItem = await _repository.GetByIdAsync(id);
             toDoItem.MarkComplete();
             await _repository.UpdateAsync(toDoItem);
 

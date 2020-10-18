@@ -1,4 +1,6 @@
-﻿using depox.Core.Events;
+﻿using Ardalis.GuardClauses;
+using depox.Core.Events;
+using depox.Core.Exceptions;
 using depox.SharedKernel;
 
 namespace depox.Core.Entities
@@ -18,13 +20,37 @@ namespace depox.Core.Entities
         public Bin Bin { get; set; }
 
 
-        public bool StockIsNegative()
+        private bool OutOfStock()
         {
-            if (StockQuantity < 0)
+            if (StockQuantity <= 0)
             {
                 Events.Add(new ItemNegativeStockQuantity(this));
             }
             return StockQuantity < 0;
+        }
+
+        public void RemoveStock(decimal currentQuantity, decimal quantityToRemove)
+        {
+            var finalQuantity = currentQuantity - quantityToRemove;
+            StockQuantity = finalQuantity;
+            if (OutOfStock())
+            {
+                throw new  OutOfStockException(Id);
+            }
+        }
+
+        public void AddQuantity(decimal quantity)
+        {
+            Guard.Against.OutOfRange(quantity, nameof(quantity), 0, decimal.MaxValue);
+
+            StockQuantity += quantity;
+        }
+
+        public void SetQuantity(decimal quantity)
+        {
+            Guard.Against.OutOfRange(quantity, nameof(quantity), 0, decimal.MaxValue);
+
+            StockQuantity = quantity;
         }
 
     }
