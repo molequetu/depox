@@ -66,10 +66,11 @@ namespace depox.Web
 
             services.AddCors(options =>
             {
+                var urls = new[] {"http://localhost:3000", "http://localhost:5000"};
                 // this defines a CORS policy called "default"
                 options.AddPolicy("default", policy =>
                 {
-                    policy.WithOrigins("http://localhost:3000")
+                    policy.WithOrigins(urls)
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
