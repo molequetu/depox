@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using depox.Core.Entities;
 using depox.Core.Enums;
 
@@ -32,6 +33,24 @@ namespace depox.Web.ApiModels
                 Bin = stockMovement.Bin,
                 Item = stockMovement.Item
             };
+        }
+        public static List<StockDto> FromStocks(List<Stock> stockMovements)
+        {
+            List<StockDto> stocks = new List<StockDto>();
+            foreach (var stockMovement in stockMovements)
+            {
+                stocks.Add(new StockDto()
+                {
+                    Id = stockMovement.Id,
+                    UserId = stockMovement.UserId,
+                    Quantity = stockMovement.Quantity,
+                    ActionType = stockMovement.ActionType,
+                    CreatedAt = stockMovement.CreatedAt,
+                    Bin = stockMovement.Bin,
+                    Item = stockMovement.Item
+                });
+            }
+            return stocks;
         }
     }
 

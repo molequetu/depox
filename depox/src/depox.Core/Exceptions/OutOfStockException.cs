@@ -4,7 +4,7 @@ namespace depox.Core.Exceptions
 {
     public class OutOfStockException : Exception
     {
-        public OutOfStockException(int itemId) : base($"Item is out of stock  {itemId}")
+        public OutOfStockException(string itemCode) : base($"Item {itemCode} get's out of stock with the supplied quantity")
         {
         }
 
@@ -12,9 +12,6 @@ namespace depox.Core.Exceptions
         {
         }
 
-        public OutOfStockException(string message) : base(message)
-        {
-        }
 
         public OutOfStockException(string message, Exception innerException) : base(message, innerException)
         {

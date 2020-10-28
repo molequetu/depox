@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using depox.SharedKernel;
+using Newtonsoft.Json;
 
 namespace depox.Core.Entities
 {
@@ -11,6 +12,7 @@ namespace depox.Core.Entities
         public string Name { get; set; }
         public string Description { get; set; }
 
+        [JsonIgnore]
         public ICollection<Item> Items { get; set; }
 
     }

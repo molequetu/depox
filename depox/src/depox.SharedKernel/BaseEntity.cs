@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace depox.SharedKernel
 {
@@ -7,6 +8,7 @@ namespace depox.SharedKernel
     {
         public int Id { get; set; }
 
+        [JsonIgnore]
         public List<BaseDomainEvent> Events = new List<BaseDomainEvent>();
     }
 }

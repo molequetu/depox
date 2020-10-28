@@ -60,7 +60,7 @@ namespace depox.Core.Services
             // quantity applied to remove is greater than the available item's quantity, cant export
             if (item.IsOutOfStock(quantity))
             {
-                throw new OutOfStockException(itemId);
+                throw new OutOfStockException(item.Code);
             }
 
             item.SetQuantity(item.StockQuantity - quantity);
