@@ -6,6 +6,7 @@
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <OutputType>Exe</OutputType>
     <WebProjectMode>true</WebProjectMode>
+    <UserSecretsId>431b081a-1d26-43bf-a045-416f3d765fd4</UserSecretsId>
   </PropertyGroup>
   
   <ItemGroup>

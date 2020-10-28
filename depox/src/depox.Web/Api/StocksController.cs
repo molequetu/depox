@@ -27,15 +27,14 @@ namespace depox.Web.Api
             _stockService = stockService;
         }
 
-        // GET: api/Stocks
         [HttpGet]
         public async Task<IActionResult> List()
         {
             var stocks = _dbContext.Stocks.Include(x => x.Bin).Include(x => x.Item).ToList();
             return Ok(StockDto.FromStocks(stocks.OrderByDescending(stock => stock.CreatedAt).ToList()));
         }
-
-        [HttpPost("/import")]
+        // POST: api/Stocks/import
+        [HttpPost("import")]
         [Produces("application/json")]
         public async Task<IActionResult> Import([FromBody] StockImportExportDto stockImport)
         {
@@ -48,8 +47,8 @@ namespace depox.Web.Api
             await _stockService.ImportStock(bin.Id, item.Id , stockImport.Quantity);
             return Ok(new { status = HttpStatusCode.Created, message = "Stock successful imported" });
         }
-
-        [HttpPost("/export")]
+        // POST: api/Stocks/export
+        [HttpPost("export")]
         [Produces("application/json")]
         public async Task<IActionResult> Export([FromBody] StockImportExportDto stockImport)
         {
