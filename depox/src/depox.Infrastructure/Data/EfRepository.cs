@@ -23,7 +23,7 @@ namespace depox.Infrastructure.Data
         public Task<T> GetByIdAsync(int id)        {
             return _dbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
         }
-
+  
         public Task<List<T>> ListAsync()
         {
             return _dbContext.Set<T>().ToListAsync();

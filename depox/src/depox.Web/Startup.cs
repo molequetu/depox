@@ -12,6 +12,8 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 using System.Linq;
+using depox.Core.Interfaces;
+using depox.Core.Services;
 
 namespace depox.Web
 {
@@ -35,6 +37,10 @@ namespace depox.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // service injection
+            services.AddScoped<IStockService, StockService>();
+
+
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             // Configuration.GetConnectionString("SqliteConnection");  //
 
@@ -56,6 +62,17 @@ namespace depox.Web
 
                 // optional - default path to view services is /listallservices - recommended to choose your own path
                 config.Path = "/listservices";
+            });
+
+            services.AddCors(options =>
+            {
+                // this defines a CORS policy called "default"
+                options.AddPolicy("default", policy =>
+                {
+                    policy.WithOrigins("http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
             });
         }
 
@@ -82,7 +99,7 @@ namespace depox.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseCors("default");
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
