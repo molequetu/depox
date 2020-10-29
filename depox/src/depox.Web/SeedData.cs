@@ -12,35 +12,35 @@ namespace depox.Web
     {
         private static readonly Bin Bin1 = new  Bin()
         {
-            Code = "B01",
+            Code = "B001",
             Description = "Try to get the sample to build."
         };
 
         private static readonly Bin Bin2 = new Bin()
         {
-            Code = "B02",
+            Code = "B002",
             Description = "Review the different projects in the solution and how they relate to one another"
         };
 
         private static readonly Bin Bin3 = new Bin()
         {
-            Code = "B03",
+            Code = "B003",
             Description = "Make sure all the tests run and review what they are doing."
         };
 
         private static readonly Item StockItem1 = new Item()
         {
-            Code = "SI01",  
+            Code = "SI001",  
         };
 
         private static readonly Item StockItem2 = new Item()
         {
-            Code = "SI02",
+            Code = "SI002",
         };
 
         private static readonly Item StockItem3 = new Item()
         {
-            Code = "SI03"
+            Code = "SI003"
         };
 
         public static void Initialize(IServiceProvider serviceProvider)
@@ -49,7 +49,7 @@ namespace depox.Web
                 serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null))
             {
                 // Look for any TODO items.
-                if (dbContext.ToDoItems.Any())
+                if (dbContext.Bins.Any() || dbContext.Items.Any() || dbContext.Stocks.Any())
                 {
                     return;   // DB has been seeded
                 }
@@ -61,20 +61,10 @@ namespace depox.Web
         }
         public static void PopulateTestData(AppDbContext dbContext)
         {
-            foreach (var item in dbContext.Bins)
-            {
-                dbContext.Remove(item);
-            }
-            foreach (var item in dbContext.Items)
-            {
-                dbContext.Remove(item);
-            }
-            dbContext.SaveChanges();
-            
+
             dbContext.Bins.Add(Bin1);
             dbContext.Bins.Add(Bin2);
             dbContext.Bins.Add(Bin3);
-
             dbContext.SaveChanges();
 
             dbContext.Entry<Bin>(Bin1).State = EntityState.Detached;
