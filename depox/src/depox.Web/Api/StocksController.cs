@@ -1,4 +1,5 @@
-﻿using depox.Core.Entities;
+﻿using System;
+using depox.Core.Entities;
 using depox.SharedKernel.Interfaces;
 using depox.Web.ApiModels;
 using Microsoft.AspNetCore.Mvc;
@@ -64,7 +65,11 @@ namespace depox.Web.Api
             }
             catch (OutOfStockException ex)
             {
-                return Conflict(new { status = HttpStatusCode.Conflict, message = ex.Message});
+                return Conflict(new {status = HttpStatusCode.Conflict, message = ex.Message});
+            }
+            catch (Exception ex)
+            {
+                return Conflict(new { status = HttpStatusCode.NotFound, message = ex.Message });
             }
 
             return Ok(new { status = HttpStatusCode.Created, message = "Stock successful exported" });
