@@ -67,7 +67,7 @@ namespace depox.Web.Api
                 return Conflict(new { status = HttpStatusCode.Conflict, message = ex.Message});
             }
 
-            return Ok(new { status = HttpStatusCode.Created, message = "Stock successful imported" });
+            return Ok(new { status = HttpStatusCode.Created, message = "Stock successful exported" });
         }
     }
 }
