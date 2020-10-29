@@ -29,8 +29,6 @@ namespace depox.Core.Services
             var bin = await _binRepository.GetByIdAsync(binId);
             if (bin == null) throw new BinNotFoundException(binId);
 
-            // assign bin to item if it has not already assigned
-            if (item.Bin == null) item.Bin = new Bin() {Id = binId};
 
             // binId given is not the actual assigned to that item
             if(item.Bin.Id != binId) throw new Exception("Item is not stored in the given bin, try another");
@@ -60,7 +58,7 @@ namespace depox.Core.Services
             if (item == null) throw new ItemNotFoundException(itemId);
 
             // does this item belongs to the given bin or does the item have a bin assigned in order to export;
-            if (item.Bin == null || item.Bin.Id != binId) throw new Exception("Cant export items, bind not defined or it is assigned to another bin");
+            if (item.Bin == null || item.Bin.Id != binId) throw new Exception("Cant export items, bin not defined for this item, or it is assigned to another bin");
 
             var bin = await _binRepository.GetByIdAsync(binId);
             if (bin == null) throw new BinNotFoundException(binId);
