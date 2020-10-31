@@ -30,10 +30,6 @@ namespace depox.Core.Services
             if (bin == null) throw new BinNotFoundException(binId);
 
 
-            // binId given is not the actual assigned to that item
-            if(item.Bin.Id != binId) throw new Exception("Item is not stored in the given bin, try another");
-            
-
             item.AddQuantity(quantity);
 
             // update items stock quantity
