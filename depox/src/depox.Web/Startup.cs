@@ -66,7 +66,7 @@ namespace depox.Web
 
             services.AddCors(options =>
             {
-                var urls = new[] {"http://localhost:3000", "http://localhost:5000", "https://molequetu.github.io/depox-pwa/", "https://molequetu.github.io" };
+                var urls = new[] {"http://localhost:3000", "http://localhost:5000", "https://molequetu.github.io/depox-pwa/", "https://molequetu.github.io", "https://depox.azurewebsites.net/" };
                 // this defines a CORS policy called "default"
                 options.AddPolicy("default", policy =>
                 {
